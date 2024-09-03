@@ -1,3 +1,5 @@
 <?php
 
-echo "front";
+get_header();
+
+echo "Front";
