@@ -5,10 +5,9 @@
     <img alt="" class="image-fluid" src="<?php header_image(); ?>">
 </div>
 
-<div class="container-fluid orange-background">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-2"></div>
-        <div class="col-6">
+        <div class="col-md-8 col-sm-12">
         <?php 
                     $product_cats = []; //array for non duplicated category
 
@@ -73,10 +72,10 @@
                                      $class = '';
                                  } 
                     ?>
-                        <div class="tab-pane fade <?php echo $class ?>" 
-                                id="<?php echo $product_cat; ?>" 
-                                role="tabpanel" 
-                                aria-labelledby="<?php echo $product_cat; ?>-tab">
+                       <div class="tab-pane fade <?php echo $class ?>" 
+                            id="<?php echo $product_cat; ?>" 
+                            role="tabpanel" 
+                            aria-labelledby="<?php echo $product_cat; ?>-tab">
 
                              <?php
                                         $args = [
@@ -102,14 +101,18 @@
                                     ?>
 
                               <div class="row">
-                                 <div class="col-md-4 col-sm-12">
-                                        <img src="<?php echo $image[0] ?>" alt="">
+                                 <div class="col-md-2 col-sm-12">
+                                        <img src="<?php echo $image[0] ?>" 
+                                             alt="<?php echo wp_get_attachment_caption( get_the_ID() ); ?>">
                                  </div>
                                  <div class="col-md-8 col-sm-12">
                                         <h3><?php echo get_the_title(); ?></h3>
                                         <p><?php echo get_the_title(); ?></p>
-                                        <?php wc_get_template( 'loop/add-to-cart.php' ); ?>
                                  </div>
+                                <div class="col-md-2">
+                                   <?php wc_get_template( 'loop/price.php' ); ?>
+                                   <?php wc_get_template( 'loop/add-to-cart.php' ); ?>
+                                </div>
                               </div>      
 
                     <?php     }   
@@ -127,11 +130,16 @@
                     }
                     wp_reset_postdata();
                 ?>
-        </div><!-- .col-6 -->
-        <div class="col-2">
-            Mini cart
+        </div><!-- .col-8 -->
+        <div class="col-4">
+            <div class="cartcontents">
+                <div class="widget_shopping_cart_content">
+                <?php
+                    woocommerce_mini_cart();
+                 ?>
+                </div>
+            </div>
         </div>
-        <div class="col-2"></div>
     </div><!-- . row -->
 </div><!-- . container-fluid -->
 
