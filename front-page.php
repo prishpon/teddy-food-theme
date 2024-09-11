@@ -60,7 +60,7 @@
                         </li>
                                     <?php   } //End foreach $cats  ?>
                         </ul>
-                    <div class="tab-content" id="myTabContent">
+                <div class="tab-content" id="myTabContent">
                     <?php 
                              $counter = 0;
                              $class = '';
@@ -77,10 +77,49 @@
                                 id="<?php echo $product_cat; ?>" 
                                 role="tabpanel" 
                                 aria-labelledby="<?php echo $product_cat; ?>-tab">
-                             <?php echo $product_cat; ?>
-                        </div>
+
+                             <?php
+                                        $args = [
+                                            'post_type' => 'product',
+                                            'posts_per_page' => -1,
+                                            'tax_query' => array(
+                                                array(
+                                                    'taxonomy' => 'product_cat',
+                                                    'field'  => 'slug',
+                                                    'terms' => array( $product_cat ),
+                                                    'operator' => 'IN'
+                                                )
+                                            )
+                                        ];
+
+                        $products_from_cat = new WP_Query ( $args );
+
+                        if( $products_from_cat -> have_posts() ) {
+                            while( $products_from_cat -> have_posts() ){
+                                $products_from_cat -> the_post();
+                                
+                                    $image = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'thumbnail' );
+                                    ?>
+
+                              <div class="row">
+                                 <div class="col-md-4 col-sm-12">
+                                        <img src="<?php echo $image[0] ?>" alt="">
+                                 </div>
+                                 <div class="col-md-8 col-sm-12">
+                                        <h3><?php echo get_the_title(); ?></h3>
+                                        <p><?php echo get_the_title(); ?></p>
+                                        <?php wc_get_template( 'loop/add-to-cart.php' ); ?>
+                                 </div>
+                              </div>      
+
+                    <?php     }   
+                        } //end if products from cat
+
+                        wp_reset_postdata();
+                             ;?>
+                    </div>
                         <?php   } //End foreach $cats  ?>    
-                    </div><!-- .tab content --> 
+                </div><!-- .tab content --> 
 
                     <?php
                     } else {
