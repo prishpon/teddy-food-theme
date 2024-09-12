@@ -5,7 +5,7 @@
     <img alt="" class="image-fluid" src="<?php header_image(); ?>">
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid orange-background">
     <div class="row">
         <div class="col-md-8 col-sm-12">
         <?php 
@@ -109,9 +109,11 @@
                                         <h3><?php echo get_the_title(); ?></h3>
                                         <p><?php echo get_the_title(); ?></p>
                                  </div>
-                                <div class="col-md-2">
-                                   <?php wc_get_template( 'loop/price.php' ); ?>
-                                   <?php wc_get_template( 'loop/add-to-cart.php' ); ?>
+                                <div class="col-md-1">
+                                   <?php wc_get_template( '/loop/price.php' ); ?>
+                                </div>
+                                <div class="col-md-1">
+                                   <?php wc_get_template( 'templates/loop/add-to-cart.php' ); ?>
                                 </div>
                               </div>      
 
@@ -142,6 +144,7 @@
         </div>
     </div><!-- . row -->
 </div><!-- . container-fluid -->
+
 
 <?php
 get_footer();
